@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Рахмет! - Бала бақша{% endblock %}
+
+{% block content %}
+<div class="container py-5 my-5 text-center">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="display-1 text-success mb-4">🎉</div>
+            <h1 class="display-4 fw-bold mb-4">Рахмет!</h1>
+            <p class="lead text-muted mb-5">Сіздің өтініміңіз сәтті қабылданды. Біздің мамандар жақын арада сізбен байланысады.</p>
+            <a href="{% url 'home' %}" class="btn btn-primary btn-lg rounded-pill px-5">Басты бетке оралу</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

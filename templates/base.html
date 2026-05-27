@@ -1,23 +1,39 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Django Base{% endblock %}</title>
+    <title>{% block title %}Бала бақша - Мейірімді мекен{% endblock %}</title>
+    <!-- Bootstrap CSS for layout -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <a href="{% url 'home' %}">DjangoProject</a>
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+            <div class="container">
+                <a class="navbar-brand logo-text" href="{% url 'home' %}">
+                    <span class="text-primary">Бала</span><span class="text-warning">бақша</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Басты бет</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'group_list' %}">Топтар</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'teacher_list' %}">Тәрбиешілер</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">Біз туралы</a></li>
+                        <li class="nav-item ms-lg-3">
+                            <a class="btn btn-primary rounded-pill" href="{% url 'enroll' %}">Өтінім беру</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
         </nav>
     </header>
 
@@ -26,8 +42,45 @@
         {% endblock %}
     </main>
 
-    <footer>
-        <p>&copy; {% now "Y" %} Django Project. All rights reserved.</p>
+    <footer class="bg-light py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="logo-text mb-3"><span class="text-primary">Бала</span><span class="text-warning">бақша</span></h5>
+                    <p>Балаңыздың бақытты балалық шағы мен сапалы тәрбиесі үшін ең жақсы таңдау.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Сілтемелер</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'home' %}" class="text-decoration-none text-muted">Басты бет</a></li>
+                        <li><a href="{% url 'group_list' %}" class="text-decoration-none text-muted">Топтар</a></li>
+                        <li><a href="{% url 'teacher_list' %}" class="text-decoration-none text-muted">Тәрбиешілер</a></li>
+                        <li><a href="{% url 'about' %}" class="text-decoration-none text-muted">Біз туралы</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5>Байланыс</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li>📍 Алматы қаласы, Абай даңғылы 42</li>
+                        <li>📞 +7 (727) 123-4567</li>
+                        <li>📧 info@balabaksha.kz</li>
+                        <li class="mt-2">
+                            <div class="ratio ratio-16x9 border rounded overflow-hidden">
+                                <div class="bg-secondary d-flex align-items-center justify-content-center text-white">
+                                    <span>[Карта картасы]</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center text-muted">
+                <p>&copy; {% now "Y" %} "Бала бақша". Барлық құқықтар қорғалған.</p>
+            </div>
+        </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
