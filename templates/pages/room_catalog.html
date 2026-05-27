@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Бөлмелер қоры - Қонақ үй{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-dark text-white text-center">
+    <div class="container">
+        <h1>Бөлмелер қоры</h1>
+        <p class="lead">Сіздің талғамыңызға сай бөлме таңдаңыз</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 mb-4">
+                <div class="card shadow-sm p-4">
+                    <h5 class="mb-3">Сүзгілер</h5>
+                    <form method="get">
+                        <div class="mb-3">
+                            <label class="form-label">Сыйымдылығы (адам)</label>
+                            <select name="capacity" class="form-select">
+                                <option value="">Барлығы</option>
+                                <option value="1">1+</option>
+                                <option value="2">2+</option>
+                                <option value="3">3+</option>
+                                <option value="4">4+</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Санат</label>
+                            <select name="tier" class="form-select">
+                                <option value="">Барлығы</option>
+                                <option value="economy">Эконом (< 50 000 ₸)</option>
+                                <option value="luxury">Люкс (>= 50 000 ₸)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-gold w-100">Қолдану</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="row">
+                    {% for room in rooms %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card room-card">
+                            <img src="{{ room.image_url }}" class="card-img-top" alt="{{ room.name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ room.name }}</h5>
+                                <p class="card-text text-muted">{{ room.description|truncatewords:20 }}</p>
+                                <ul class="list-unstyled mb-3">
+                                    <li><i class="bi bi-people"></i> Сыйымдылығы: {{ room.capacity }} адам</li>
+                                </ul>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="room-price">{{ room.price_per_night }} ₸</span>
+                                    <a href="{% url 'room_detail' room.pk %}" class="btn btn-outline-gold">Толығырақ</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12 text-center py-5">
+                        <p class="lead">Өкінішке орай, мұндай бөлмелер табылмады.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
