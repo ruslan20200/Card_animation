@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Сәтті - Автобөлшектер{% endblock %}
+
+{% block content %}
+<div class="container text-center" style="padding: 100px 0;">
+    <div class="success-message">
+        <i class="fas fa-check-circle" style="font-size: 4rem; color: #ff4500; margin-bottom: 20px;"></i>
+        <h2>Хабарламаңыз сәтті жіберілді!</h2>
+        <p>Біздің мамандар сізбен жақын арада байланысады.</p>
+        <a href="{% url 'home' %}" class="btn btn-primary" style="margin-top: 20px;">Басты бетке оралу</a>
+    </div>
+</div>
+{% endblock %}

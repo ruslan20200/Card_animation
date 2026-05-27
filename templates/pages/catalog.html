@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Каталог - Автобөлшектер{% endblock %}
+
+{% block content %}
+<div class="container catalog-container">
+    <aside class="sidebar">
+        <h3>Санаттар</h3>
+        <ul>
+            <li><a href="{% url 'catalog' %}" {% if not selected_category %}class="active"{% endif %}>Барлығы</a></li>
+            {% for category in categories %}
+            <li>
+                <a href="{% url 'catalog' %}?category={{ category.id }}"
+                   {% if selected_category == category.id|stringformat:"i" %}class="active"{% endif %}>
+                    {{ category.name }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </aside>
+
+    <div class="catalog-main">
+        <h2 class="section-title">Бөлшектер каталогы</h2>
+        <div class="product-grid">
+            {% for part in parts %}
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="{{ part.image_url }}" alt="{{ part.name }}">
+                </div>
+                <div class="product-info">
+                    <h3>{{ part.name }}</h3>
+                    <p class="category">{{ part.category.name }}</p>
+                    <p class="price">{{ part.price }} ₸</p>
+                    <div class="product-actions">
+                        <a href="{% url 'part_detail' part.pk %}" class="btn btn-outline">Толығырақ</a>
+                        <button class="btn btn-primary"><i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>Бұл санатта әзірге бөлшектер жоқ.</p>
+            {% endfor %}
+        </div>
+
+        {% if is_paginated %}
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page=1{% if selected_category %}&category={{ selected_category }}{% endif %}">&laquo; бірінші</a>
+                <a href="?page={{ page_obj.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}">алдыңғы</a>
+            {% endif %}
+
+            <span class="current">
+                Бет {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}">келесі</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}{% if selected_category %}&category={{ selected_category }}{% endif %}">соңғы &raquo;</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

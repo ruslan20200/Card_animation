@@ -1,23 +1,28 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Django Base{% endblock %}</title>
+    <title>{% block title %}Автобөлшектер дүкені{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="dark-theme">
     <header>
-        <nav>
-            <div class="logo">
-                <a href="{% url 'home' %}">DjangoProject</a>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="{% url 'home' %}"><i class="fas fa-car-side"></i> АВТО<span>БӨЛШЕКТЕР</span></a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{% url 'home' %}">Басты бет</a></li>
+                    <li><a href="{% url 'catalog' %}">Каталог</a></li>
+                    <li><a href="{% url 'contact' %}">Байланыс</a></li>
+                    <li><a href="#" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span class="cart-count">0</span></a></li>
+                </ul>
             </div>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
         </nav>
     </header>
 
@@ -26,8 +31,32 @@
         {% endblock %}
     </main>
 
-    <footer>
-        <p>&copy; {% now "Y" %} Django Project. All rights reserved.</p>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>АвтоБөлшектер</h3>
+                    <p>Сіздің көлігіңіз үшін сапалы қосалқы бөлшектер.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Сілтемелер</h3>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Басты бет</a></li>
+                        <li><a href="{% url 'catalog' %}">Каталог</a></li>
+                        <li><a href="{% url 'contact' %}">Байланыс</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Байланыс</h3>
+                    <p><i class="fas fa-phone"></i> +7 (700) 123-45-67</p>
+                    <p><i class="fas fa-envelope"></i> info@avtobolshek.kz</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Алматы қ., Абай даңғылы, 10</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; {% now "Y" %} Автобөлшектер. Барлық құқықтар қорғалған.</p>
+            </div>
+        </div>
     </footer>
 </body>
 </html>

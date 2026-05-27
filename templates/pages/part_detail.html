@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}{{ part.name }} - Автобөлшектер{% endblock %}
+
+{% block content %}
+<div class="container detail-container">
+    <div class="detail-grid">
+        <div class="detail-image">
+            <img src="{{ part.image_url }}" alt="{{ part.name }}">
+        </div>
+        <div class="detail-info">
+            <nav class="breadcrumb">
+                <a href="{% url 'home' %}">Басты бет</a> /
+                <a href="{% url 'catalog' %}">Каталог</a> /
+                <a href="{% url 'catalog' %}?category={{ part.category.id }}">{{ part.category.name }}</a>
+            </nav>
+            <h1>{{ part.name }}</h1>
+            <p class="detail-price">{{ part.price }} ₸</p>
+            <div class="availability">
+                Күйі: {% if part.is_available %}<span class="in-stock">Қоймада бар</span>{% else %}<span class="out-of-stock">Жоқ</span>{% endif %}
+            </div>
+            <div class="description">
+                <h3>Сипаттамасы:</h3>
+                <p>{{ part.description }}</p>
+            </div>
+            <div class="detail-actions">
+                <button class="btn btn-primary btn-large"><i class="fas fa-cart-plus"></i> Себетке қосу</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

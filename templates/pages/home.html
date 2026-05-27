@@ -1,8 +1,53 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Home - Django Project{% endblock %}
+{% block title %}Басты бет - Автобөлшектер{% endblock %}
 
 {% block content %}
-    <h1>Welcome to the Home Page</h1>
-    <p>This is a clean, production-ready Django boilerplate.</p>
+<section class="hero">
+    <div class="container">
+        <h1>Көлігіңізге қажеттінің бәрі осында</h1>
+        <p>Сапалы бөлшектер, тиімді бағалар және жылдам жеткізу.</p>
+        <a href="{% url 'catalog' %}" class="btn btn-primary">Каталогты көру</a>
+    </div>
+</section>
+
+<section class="featured-categories">
+    <div class="container">
+        <h2 class="section-title">Танымал санаттар</h2>
+        <div class="category-grid">
+            {% for category in categories|slice:":4" %}
+            <a href="{% url 'catalog' %}?category={{ category.id }}" class="category-card">
+                <h3>{{ category.name }}</h3>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="featured-parts">
+    <div class="container">
+        <h2 class="section-title">Таңдаулы бөлшектер</h2>
+        <div class="product-grid">
+            {% for part in featured_parts %}
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="{{ part.image_url }}" alt="{{ part.name }}">
+                </div>
+                <div class="product-info">
+                    <h3>{{ part.name }}</h3>
+                    <p class="category">{{ part.category.name }}</p>
+                    <p class="price">{{ part.price }} ₸</p>
+                    <div class="product-actions">
+                        <a href="{% url 'part_detail' part.pk %}" class="btn btn-outline">Толығырақ</a>
+                        <button class="btn btn-primary"><i class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>Әзірге таңдаулы бөлшектер жоқ.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 {% endblock %}
