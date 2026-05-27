@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Оқытушылар - Оқу курсы{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-navy text-white text-center">
+    <div class="container">
+        <h1 class="fw-bold">Біздің оқытушылар</h1>
+        <p class="opacity-75">Өз ісінің мамандарынан білім алыңыз</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            {% for instructor in instructors %}
+            <div class="col-md-4">
+                <div class="card h-100 text-center p-4">
+                    <div class="d-flex justify-content-center">
+                        <img src="{{ instructor.photo_url }}" class="instructor-img" alt="{{ instructor.name }}">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-navy mb-1">{{ instructor.name }}</h5>
+                        <p class="text-teal fw-semibold mb-3">{{ instructor.specialty }}</p>
+                        <p class="card-text text-muted">{{ instructor.bio }}</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-0 pb-4">
+                        <h6 class="fw-bold text-navy mb-3">Оқытатын курстары:</h6>
+                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                            {% for course in instructor.courses.all %}
+                            <a href="{% url 'course_detail' course.pk %}" class="badge bg-light text-navy text-decoration-none px-3 py-2">{{ course.title }}</a>
+                            {% empty %}
+                            <span class="text-muted small">Әзірге курстары жоқ</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <p class="text-muted">Оқытушылар туралы ақпарат табылмады.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

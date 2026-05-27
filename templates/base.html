@@ -1,23 +1,47 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Django Base{% endblock %}</title>
+    <title>{% block title %}Оқу курсы{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 </head>
 <body>
     <header>
-        <nav>
-            <div class="logo">
-                <a href="{% url 'home' %}">DjangoProject</a>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-navy py-3">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="{% url 'home' %}">
+                    <i class="bi bi-book-half me-2"></i>ОҚУ КУРСЫ
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home' %}">Басты бет</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'course_list' %}">Курстар</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'instructor_list' %}">Оқытушылар</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about' %}">Біз туралы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contact' %}">Байланыс</a>
+                        </li>
+                        <li class="nav-item ms-lg-3">
+                            <a class="btn btn-warning fw-bold" href="{% url 'enroll' %}">Курсқа жазылу</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
         </nav>
     </header>
 
@@ -26,8 +50,45 @@
         {% endblock %}
     </main>
 
-    <footer>
-        <p>&copy; {% now "Y" %} Django Project. All rights reserved.</p>
+    <footer class="bg-navy text-white py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="fw-bold mb-3">ОҚУ КУРСЫ</h5>
+                    <p class="text-white-50">Біздің орталық сізге заманауи білім мен тәжірибе ұсынады. Болашағыңызды бізбен бірге құрыңыз.</p>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="fw-bold mb-3">Сілтемелер</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'home' %}" class="text-white-50 text-decoration-none">Басты бет</a></li>
+                        <li><a href="{% url 'course_list' %}" class="text-white-50 text-decoration-none">Курстар</a></li>
+                        <li><a href="{% url 'instructor_list' %}" class="text-white-50 text-decoration-none">Оқытушылар</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h6 class="fw-bold mb-3">Байланыс</h6>
+                    <ul class="list-unstyled text-white-50">
+                        <li><i class="bi bi-geo-alt me-2"></i>Алматы қ., Абай даңғылы, 10</li>
+                        <li><i class="bi bi-telephone me-2"></i>+7 (700) 123-45-67</li>
+                        <li><i class="bi bi-envelope me-2"></i>info@okukursy.kz</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h6 class="fw-bold mb-3">Бізді бақылаңыз</h6>
+                    <div class="d-flex">
+                        <a href="#" class="text-white me-3 fs-4"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white me-3 fs-4"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white fs-4"><i class="bi bi-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4 border-secondary">
+            <div class="text-center text-white-50">
+                <p>&copy; {% now "Y" %} Оқу Курсы. Барлық құқықтар қорғалған.</p>
+            </div>
+        </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

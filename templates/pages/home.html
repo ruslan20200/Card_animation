@@ -1,8 +1,93 @@
-{% extends "base.html" %}
-
-{% block title %}Home - Django Project{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-    <h1>Welcome to the Home Page</h1>
-    <p>This is a clean, production-ready Django boilerplate.</p>
+<!-- Hero Section -->
+<section class="hero-section text-center text-lg-start">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <h1 class="display-4 fw-bold mb-4">Болашаққа қадам бас</h1>
+                <p class="lead mb-5 opacity-75">Сапалы білім – табысты болашақтың кепілі. Біздің орталықта заманауи дағдыларды игеріп, кәсіби маман болыңыз.</p>
+                <div class="d-grid d-sm-flex gap-3">
+                    <a href="{% url 'course_list' %}" class="btn btn-warning btn-lg px-4 fw-bold">Курстарды көру</a>
+                    <a href="{% url 'about' %}" class="btn btn-outline-light btn-lg px-4">Біз туралы толығырақ</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Students learning" class="img-fluid rounded-4 shadow-lg">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-5 bg-light-custom">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <span class="stat-number">5000+</span>
+                    <span class="stat-label">Түлектер</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Тәжірибелі оқытушылар</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <span class="stat-number">30+</span>
+                    <span class="stat-label">Өзекті курстар</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Popular Courses -->
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+            <div>
+                <h2 class="fw-bold mb-0">Танымал курстар</h2>
+                <p class="text-muted">Ең көп сұранысқа ие бағыттар</p>
+            </div>
+            <a href="{% url 'course_list' %}" class="btn btn-link text-navy fw-bold text-decoration-none">Барлық курстар <i class="bi bi-arrow-right"></i></a>
+        </div>
+        <div class="row g-4">
+            {% for course in popular_courses %}
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <img src="{{ course.image_url }}" class="card-img-top" alt="{{ course.title }}">
+                    <div class="card-body">
+                        <span class="category-badge">{{ course.category.name }}</span>
+                        <h5 class="card-title fw-bold">{{ course.title }}</h5>
+                        <p class="card-text text-muted text-truncate-2">{{ course.description|truncatewords:15 }}</p>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <span class="fw-bold text-navy fs-5">{{ course.price|floatformat:0 }} ₸</span>
+                            <a href="{% url 'course_detail' course.pk %}" class="btn btn-outline-navy btn-sm">Толығырақ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p>Қазіргі уақытта танымал курстар жоқ.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-navy text-white text-center">
+    <div class="container">
+        <h2 class="fw-bold mb-4">Оқуды бүгін бастаңыз!</h2>
+        <p class="mb-4 opacity-75">Өз таңдауыңызды жасап, арманыңызға бір қадам жақындаңыз.</p>
+        <a href="{% url 'enroll' %}" class="btn btn-warning btn-lg px-5 fw-bold">Жазылу</a>
+    </div>
+</section>
 {% endblock %}

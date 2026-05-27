@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ course.title }} - Оқу курсы{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light-custom">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Басты бет</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'course_list' %}">Курстар</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ course.title }}</li>
+            </ol>
+        </nav>
+
+        <div class="row mt-4 g-5">
+            <div class="col-lg-7">
+                <img src="{{ course.image_url }}" class="img-fluid rounded-4 shadow mb-4" alt="{{ course.title }}">
+                <h1 class="fw-bold text-navy mb-3">{{ course.title }}</h1>
+                <div class="d-flex flex-wrap gap-3 mb-4">
+                    <span class="badge bg-navy px-3 py-2 fs-6">{{ course.category.name }}</span>
+                    <span class="badge bg-teal px-3 py-2 fs-6">{{ course.level }}</span>
+                </div>
+                <h3 class="fw-bold mb-3">Курс туралы</h3>
+                <p class="lead text-muted mb-4">{{ course.description }}</p>
+
+                <div class="card bg-white p-4 mt-5">
+                    <h4 class="fw-bold mb-4">Оқытушы</h4>
+                    <div class="d-flex align-items-center">
+                        <img src="{{ course.instructor.photo_url }}" alt="{{ course.instructor.name }}" class="instructor-img me-4 mb-0">
+                        <div>
+                            <h5 class="fw-bold mb-1">{{ course.instructor.name }}</h5>
+                            <p class="text-teal fw-semibold mb-2">{{ course.instructor.specialty }}</p>
+                            <p class="text-muted small mb-0">{{ course.instructor.bio }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="card border-0 shadow sticky-top" style="top: 2rem;">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-4">Курс ақпараты</h4>
+                        <ul class="list-unstyled mb-4">
+                            <li class="d-flex justify-content-between py-3 border-bottom">
+                                <span class="text-muted"><i class="bi bi-clock me-2"></i>Ұзақтығы</span>
+                                <span class="fw-bold text-navy">{{ course.duration }}</span>
+                            </li>
+                            <li class="d-flex justify-content-between py-3 border-bottom">
+                                <span class="text-muted"><i class="bi bi-calendar-event me-2"></i>Басталуы</span>
+                                <span class="fw-bold text-navy">{{ course.start_date }}</span>
+                            </li>
+                            <li class="d-flex justify-content-between py-3 border-bottom">
+                                <span class="text-muted"><i class="bi bi-bar-chart me-2"></i>Деңгейі</span>
+                                <span class="fw-bold text-navy">{{ course.level }}</span>
+                            </li>
+                            <li class="d-flex justify-content-between py-3">
+                                <span class="text-muted"><i class="bi bi-tag me-2"></i>Бағасы</span>
+                                <span class="fw-bold text-navy fs-4">{{ course.price|floatformat:0 }} ₸</span>
+                            </li>
+                        </ul>
+                        <div class="d-grid">
+                            <a href="{% url 'enroll' %}?course={{ course.id }}" class="btn btn-warning btn-lg fw-bold mb-3">Курсқа жазылу</a>
+                            <p class="text-center small text-muted mb-0"><i class="bi bi-shield-check me-1"></i> Сұрақтарыңыз бар ма? <a href="{% url 'contact' %}" class="text-navy">Хабарласыңыз</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
