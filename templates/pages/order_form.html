@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Тапсырыс беру - Азық-түлік дүкені{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body p-4">
+                    <h2 class="fw-bold mb-4 text-center">Тапсырыс беру</h2>
+                    <form method="post">
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {% for error in form.non_field_errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <div class="mb-3">
+                            <label for="{{ form.customer_name.id_for_label }}" class="form-label fw-semibold">{{ form.customer_name.label }}</label>
+                            {{ form.customer_name }}
+                            {% if form.customer_name.errors %}
+                            <div class="text-danger small mt-1">{{ form.customer_name.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.phone_number.id_for_label }}" class="form-label fw-semibold">{{ form.phone_number.label }}</label>
+                            {{ form.phone_number }}
+                            {% if form.phone_number.errors %}
+                            <div class="text-danger small mt-1">{{ form.phone_number.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.delivery_address.id_for_label }}" class="form-label fw-semibold">{{ form.delivery_address.label }}</label>
+                            {{ form.delivery_address }}
+                            {% if form.delivery_address.errors %}
+                            <div class="text-danger small mt-1">{{ form.delivery_address.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label for="{{ form.selected_product.id_for_label }}" class="form-label fw-semibold">{{ form.selected_product.label }}</label>
+                                {{ form.selected_product }}
+                                {% if form.selected_product.errors %}
+                                <div class="text-danger small mt-1">{{ form.selected_product.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="{{ form.quantity.id_for_label }}" class="form-label fw-semibold">{{ form.quantity.label }}</label>
+                                {{ form.quantity }}
+                                {% if form.quantity.errors %}
+                                <div class="text-danger small mt-1">{{ form.quantity.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-orange text-white w-100 py-2 fs-5">Тапсырысты растау</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="{% url 'catalog' %}" class="text-success text-decoration-none">&larr; Каталогқа қайту</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
