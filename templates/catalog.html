@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Әшекейлер каталогы - Зергерлік дүкен{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="section-title">Әшекейлер каталогы</h1>
+
+    <div class="filter-bar">
+        <form method="get" class="row g-3 justify-content-center">
+            <div class="col-md-3">
+                <select name="category" class="form-select" onchange="this.form.submit()">
+                    <option value="">Барлық санаттар</option>
+                    {% for cat in categories %}
+                    <option value="{{ cat.id }}" {% if selected_category == cat.id|stringformat:"i" %}selected{% endif %}>{{ cat.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select name="material" class="form-select" onchange="this.form.submit()">
+                    <option value="">Барлық материалдар</option>
+                    {% for val, label in materials %}
+                    <option value="{{ val }}" {% if selected_material == val %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
+    </div>
+
+    <div class="row g-4 mt-4">
+        {% for item in items %}
+        <div class="col-md-4 col-lg-3">
+            <div class="jewelry-card">
+                <img src="{{ item.image_url }}" alt="{{ item.title }}">
+                <div class="jewelry-card-body">
+                    {% if item.is_handcrafted %}
+                    <span class="badge-handcrafted">Қолдан жасалған</span>
+                    {% endif %}
+                    <h3 class="jewelry-title">{{ item.title }}</h3>
+                    <p class="text-secondary mb-1">{{ item.get_material_display }} {{ item.purity }}</p>
+                    <p class="jewelry-price">{{ item.price }} ₸</p>
+                    <a href="{% url 'order' %}?item={{ item.id }}" class="btn btn-luxury w-100">Тапсырыс беру</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <p class="fs-4">Өкінішке орай, бұл санатта әзірге бұйымдар жоқ.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

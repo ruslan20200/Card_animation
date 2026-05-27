@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container text-center">
+        <h1 class="hero-title">Мәңгілік сұлулық пен талғампаздық</h1>
+        <p class="hero-subtitle">Сіздің даралығыңызды айқындайтын эксклюзивті зергерлік бұйымдар</p>
+        <a href="{% url 'catalog' %}" class="btn btn-luxury">Топтаманы көру</a>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title">Ерекше бұйымдар</h2>
+        <div class="row g-4">
+            {% for item in handcrafted_items %}
+            <div class="col-md-3">
+                <div class="jewelry-card">
+                    <img src="{{ item.image_url }}" alt="{{ item.title }}">
+                    <div class="jewelry-card-body">
+                        <span class="badge-handcrafted">Қолдан жасалған</span>
+                        <h3 class="jewelry-title">{{ item.title }}</h3>
+                        <p class="jewelry-price">{{ item.price }} ₸</p>
+                        <a href="{% url 'order' %}?item={{ item.id }}" class="btn btn-luxury btn-sm">Тапсырыс беру</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p>Жақын арада жаңа бұйымдар қосылады.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-dark">
+    <div class="container">
+        <h2 class="section-title">Санаттар</h2>
+        <div class="row g-4 text-center">
+            {% for category in categories %}
+            <div class="col-md-4">
+                <a href="{% url 'catalog' %}?category={{ category.id }}" class="text-decoration-none">
+                    <div class="p-5 border border-secondary hover-gold transition">
+                        <h3 class="text-white">{{ category.name }}</h3>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
