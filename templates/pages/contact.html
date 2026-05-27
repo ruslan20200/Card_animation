@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Байланыс - Кітапхана{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="fw-bold mb-5 text-center">Байланыс</h1>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card p-4 h-100">
+                <h4 class="fw-bold mb-4">Біздің мекен-жайымыз</h4>
+                <p>📍 Алматы қаласы, Абай даңғылы 14</p>
+                <p>📞 +7 (727) 123 45 67</p>
+                <p>📧 info@kitaphana.kz</p>
+                <hr>
+                <h4 class="fw-bold mb-4">Жұмыс уақыты</h4>
+                <p>Дүйсенбі - Жұма: 09:00 - 20:00</p>
+                <p>Сенбі - Жексенбі: 10:00 - 18:00</p>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card p-4 h-100">
+                <h4 class="fw-bold mb-4">Кері байланыс</h4>
+                <form>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Аты-жөніңіз">
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" rows="4" placeholder="Хабарламаңыз"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary w-100">Жіберу</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

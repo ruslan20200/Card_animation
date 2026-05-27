@@ -1,33 +1,47 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Django Base{% endblock %}</title>
+    <title>{% block title %}Кітапхана{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <a href="{% url 'home' %}">DjangoProject</a>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{% url 'home' %}">КІТАПХАНА</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-link"><a class="nav-link" href="{% url 'home' %}">Басты бет</a></li>
+                    <li class="nav-link"><a class="nav-link" href="{% url 'book_list' %}">Кітаптар каталогы</a></li>
+                    <li class="nav-link"><a class="nav-link" href="{% url 'author_list' %}">Авторлар</a></li>
+                    <li class="nav-link"><a class="nav-link" href="{% url 'about' %}">Біз туралы</a></li>
+                    <li class="nav-link"><a class="nav-link" href="{% url 'contact' %}">Байланыс</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-outline-light" href="{% url 'book_reservation' %}">Кітапты брондау</a>
+                    </li>
+                </ul>
             </div>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
     <main>
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
     </main>
 
-    <footer>
-        <p>&copy; {% now "Y" %} Django Project. All rights reserved.</p>
+    <footer class="footer">
+        <div class="container text-center">
+            <h3 class="fw-bold mb-4">КІТАПХАНА</h3>
+            <p>© {% now "Y" %} Барлық құқықтар қорғалған. Кітап — білім бұлағы.</p>
+        </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
