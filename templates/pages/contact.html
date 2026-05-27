@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Байланыс - Ақша айырбастау{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Бізбен <span class="text-accent">байланысыңыз</span></h1>
+        <p class="text-secondary">Сұрақтарыңыз бар ма? Бізге хабарласыңыз немесе кеңсемізге келіңіз.</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="card-custom h-100">
+                <h4 class="mb-4">Байланыс мәліметтері</h4>
+                <div class="mb-4">
+                    <label class="text-accent d-block small fw-bold text-uppercase mb-1">Мекен-жайы</label>
+                    <p>Алматы қаласы, Абай даңғылы, 150</p>
+                </div>
+                <div class="mb-4">
+                    <label class="text-accent d-block small fw-bold text-uppercase mb-1">Телефон</label>
+                    <p>+7 (727) 321-45-67<br>+7 (707) 123-45-67</p>
+                </div>
+                <div class="mb-4">
+                    <label class="text-accent d-block small fw-bold text-uppercase mb-1">Жұмыс уақыты</label>
+                    <p>Күн сайын: 09:00 - 20:00<br>Үзіліссіз және демалыссыз</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card-custom h-100">
+                <h4 class="mb-4">Кері байланыс</h4>
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Аты-жөніңіз</label>
+                            <input type="text" class="form-control" placeholder="Атыңызды енгізіңіз">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Электрондық пошта</label>
+                            <input type="email" class="form-control" placeholder="email@example.com">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Хабарлама</label>
+                        <textarea class="form-control" rows="5" placeholder="Сіздің сұрағыңыз..."></textarea>
+                    </div>
+                    <button type="button" class="btn btn-accent px-5">Жіберу</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

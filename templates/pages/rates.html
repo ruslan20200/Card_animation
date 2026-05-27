@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Валюталар бағамы - Ақша айырбастау{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Ағымдағы <span class="text-accent">валюта бағамдары</span></h1>
+        <p class="text-secondary">Төмендегі кестеден барлық қолжетімді валюталардың сатып алу және сату бағамын көре аласыз.</p>
+    </div>
+
+    <div class="card-custom p-0 overflow-hidden">
+        <div class="table-responsive">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-4">Валюта коды</th>
+                        <th>Атауы</th>
+                        <th>Сатып алу (₸)</th>
+                        <th>Сату (₸)</th>
+                        <th>Соңғы жаңарту</th>
+                        <th class="text-end pe-4">Әрекет</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for currency in currencies %}
+                    <tr>
+                        <td class="ps-4 py-4">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ currency.flag_url }}" alt="{{ currency.code }}" class="currency-flag">
+                                <span class="fw-bold">{{ currency.code }}</span>
+                            </div>
+                        </td>
+                        <td class="text-secondary">{{ currency.name }}</td>
+                        <td class="fw-bold text-accent">{{ currency.buy_rate }}</td>
+                        <td class="fw-bold">{{ currency.sell_rate }}</td>
+                        <td class="small text-secondary">{{ currency.updated_at|date:"H:i, d.m.Y" }}</td>
+                        <td class="text-end pe-4">
+                            <div class="btn-group">
+                                <a href="{% url 'reserve' %}?currency={{ currency.code }}&operation=buy" class="btn btn-sm btn-outline-accent">Сатып алу</a>
+                                <a href="{% url 'reserve' %}?currency={{ currency.code }}&operation=sell" class="btn btn-sm btn-outline-light">Сату</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center py-5 text-secondary">Валюталар табылмады.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn-outline-accent {
+        color: var(--accent);
+        border-color: var(--accent);
+    }
+    .btn-outline-accent:hover {
+        background-color: var(--accent);
+        color: #000;
+        border-color: var(--accent);
+    }
+</style>
+{% endblock %}

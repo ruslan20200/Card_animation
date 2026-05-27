@@ -1,8 +1,130 @@
 {% extends "base.html" %}
-
-{% block title %}Home - Django Project{% endblock %}
+{% load static %}
 
 {% block content %}
-    <h1>Welcome to the Home Page</h1>
-    <p>This is a clean, production-ready Django boilerplate.</p>
+<div class="container">
+    <div class="row mb-5 align-items-center">
+        <div class="col-lg-6">
+            <h1 class="display-4 fw-bold mb-4">Сенімді <span class="text-accent">валюта айырбастау</span> қызметі</h1>
+            <p class="lead text-secondary mb-4">Бізбен бірге валютаны тиімді бағаммен және қауіпсіз айырбастаңыз. Нақты уақыттағы бағамдар мен брондау мүмкіндігі.</p>
+            <div class="d-flex gap-3">
+                <a href="{% url 'rates' %}" class="btn btn-outline-light btn-lg px-4">Бағамдарды көру</a>
+                <a href="{% url 'reserve' %}" class="btn btn-accent btn-lg px-4">Қазір брондау</a>
+            </div>
+        </div>
+        <div class="col-lg-5 offset-lg-1 mt-5 mt-lg-0">
+            <div class="card-custom calculator-container">
+                <h3 class="mb-4 text-center">Валюта калькуляторы</h3>
+                <div class="mb-3">
+                    <label class="form-label">Операция түрі</label>
+                    <div class="btn-group w-100" role="group">
+                        <input type="radio" class="btn-check" name="calc-type" id="calc-buy" value="buy" checked>
+                        <label class="btn btn-outline-accent" for="calc-buy">Сатып алу</label>
+                        <input type="radio" class="btn-check" name="calc-type" id="calc-sell" value="sell">
+                        <label class="btn btn-outline-accent" for="calc-sell">Сату</label>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="calc-currency" class="form-label">Валюта</label>
+                    <select id="calc-currency" class="form-select">
+                        {% for currency in currencies %}
+                        <option value="{{ currency.code }}" data-buy="{{ currency.buy_rate }}" data-sell="{{ currency.sell_rate }}">
+                            {{ currency.code }} ({{ currency.name }})
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="calc-amount" class="form-label">Сома</label>
+                    <input type="number" id="calc-amount" class="form-control" placeholder="0.00">
+                </div>
+                <div class="mt-4 p-3 rounded bg-dark text-center border border-accent">
+                    <span class="text-secondary d-block mb-1">Нәтиже:</span>
+                    <h2 class="mb-0 fw-bold"><span id="calc-result">0.00</span> <small class="text-accent fs-6">₸</small></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="mt-5">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+            <h2 class="mb-0">Негізгі <span class="text-accent">валюталар</span></h2>
+            <span class="text-secondary small">Соңғы жаңарту: {% now "H:i, d.m.Y" %}</span>
+        </div>
+        <div class="card-custom p-0 overflow-hidden">
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">Валюта</th>
+                            <th>Сатып алу (₸)</th>
+                            <th>Сату (₸)</th>
+                            <th class="text-end pe-4">Әрекет</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for currency in currencies %}
+                        <tr>
+                            <td class="ps-4 py-4">
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ currency.flag_url }}" alt="{{ currency.code }}" class="currency-flag">
+                                    <div>
+                                        <div class="fw-bold">{{ currency.code }}</div>
+                                        <div class="text-secondary small">{{ currency.name }}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="fw-bold text-accent">{{ currency.buy_rate }}</td>
+                            <td class="fw-bold">{{ currency.sell_rate }}</td>
+                            <td class="text-end pe-4">
+                                <a href="{% url 'reserve' %}?currency={{ currency.code }}&operation=buy" class="btn btn-sm btn-outline-accent me-2">Брондау</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center py-5 text-secondary">Валюталар табылмады.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const amountInput = document.getElementById('calc-amount');
+    const currencySelect = document.getElementById('calc-currency');
+    const resultSpan = document.getElementById('calc-result');
+    const typeRadios = document.querySelectorAll('input[name="calc-type"]');
+
+    function calculate() {
+        const amount = parseFloat(amountInput.value) || 0;
+        const selectedOption = currencySelect.options[currencySelect.selectedIndex];
+        if (!selectedOption) return;
+
+        const isBuy = document.getElementById('calc-buy').checked;
+        const rate = isBuy ? parseFloat(selectedOption.dataset.buy) : parseFloat(selectedOption.dataset.sell);
+
+        const result = amount * rate;
+        resultSpan.innerText = result.toLocaleString('kk-KZ', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    amountInput.addEventListener('input', calculate);
+    currencySelect.addEventListener('change', calculate);
+    typeRadios.forEach(radio => radio.addEventListener('change', calculate));
+</script>
+<style>
+    .btn-outline-accent {
+        color: var(--accent);
+        border-color: var(--accent);
+    }
+    .btn-outline-accent:hover, .btn-check:checked + .btn-outline-accent {
+        background-color: var(--accent);
+        color: #000;
+        border-color: var(--accent);
+    }
+</style>
 {% endblock %}
