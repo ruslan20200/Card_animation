@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}{{ book.title }} - Кітапхана{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-success">Басты бет</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'book_list' %}" class="text-success">Каталог</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ book.title }}</li>
+        </ol>
+    </nav>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <img src="{{ book.cover_image_url }}" class="img-fluid rounded shadow" alt="{{ book.title }}">
+        </div>
+        <div class="col-md-8">
+            <h1 class="fw-bold mb-3">{{ book.title }}</h1>
+            <h4 class="text-muted mb-4">Автор: <a href="{{ book.author.get_absolute_url }}" class="text-success text-decoration-none">{{ book.author.full_name }}</a></h4>
+
+            <div class="mb-4">
+                <span class="badge bg-secondary p-2 me-2">{{ book.genre }}</span>
+                <span class="badge bg-light text-dark border p-2">{{ book.publication_year }} жыл</span>
+                {% if book.is_available %}
+                <span class="badge bg-success p-2">Қолжетімді</span>
+                {% else %}
+                <span class="badge bg-danger p-2">Қолжетімсіз</span>
+                {% endif %}
+            </div>
+
+            <div class="mb-5">
+                <h5 class="fw-bold">Сипаттамасы:</h5>
+                <p class="lead" style="white-space: pre-line;">{{ book.description }}</p>
+            </div>
+
+            {% if book.is_available %}
+            <a href="{% url 'book_reservation' %}?book_id={{ book.id }}" class="btn btn-primary btn-lg px-5">Брондау</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,8 +1,56 @@
 {% extends "base.html" %}
-
-{% block title %}Home - Django Project{% endblock %}
+{% block title %}Басты бет - Кітапхана{% endblock %}
 
 {% block content %}
-    <h1>Welcome to the Home Page</h1>
-    <p>This is a clean, production-ready Django boilerplate.</p>
+<section class="hero-section text-center">
+    <div class="container">
+        <h1 class="display-3 fw-bold mb-4">Кітап — білім бұлағы</h1>
+        <p class="lead mb-5">Әлемдегі ең үздік шығармалар мен заманауи басылымдарды бізбен бірге оқыңыз.</p>
+        <a href="{% url 'book_list' %}" class="btn btn-lg btn-light px-5 py-3 fw-bold">Каталогты көру</a>
+    </div>
+</section>
+
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Жаңа кітаптар</h2>
+        <a href="{% url 'book_list' %}" class="text-success text-decoration-none fw-bold">Барлығын көру →</a>
+    </div>
+    <div class="row">
+        {% for book in new_books %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <img src="{{ book.cover_image_url }}" class="card-img-top book-cover" alt="{{ book.title }}">
+                <div class="card-body">
+                    <span class="badge badge-genre mb-2">{{ book.genre }}</span>
+                    <h5 class="card-title fw-bold">{{ book.title }}</h5>
+                    <p class="card-text text-muted small">{{ book.author.full_name }}</p>
+                    <a href="{{ book.get_absolute_url }}" class="btn btn-primary w-100">Толығырақ</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="bg-white py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold">Танымал авторлар</h2>
+            <a href="{% url 'author_list' %}" class="text-success text-decoration-none fw-bold">Барлық авторлар →</a>
+        </div>
+        <div class="row">
+            {% for author in popular_authors %}
+            <div class="col-md-4 mb-4 text-center">
+                <div class="card border-0 shadow-sm">
+                    <img src="{{ author.photo_url }}" class="card-img-top author-photo rounded-top" alt="{{ author.full_name }}">
+                    <div class="card-body">
+                        <h5 class="fw-bold mb-3">{{ author.full_name }}</h5>
+                        <a href="{{ author.get_absolute_url }}" class="btn btn-outline-success">Шығармашылығы</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}

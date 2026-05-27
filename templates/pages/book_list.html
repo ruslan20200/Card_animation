@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Кітаптар каталогы - Кітапхана{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 mb-4">
+            <div class="sidebar">
+                <h5 class="fw-bold mb-3">Іздеу</h5>
+                <form action="{% url 'book_list' %}" method="get" class="mb-4">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Атауы, автор..." value="{{ request.GET.q }}">
+                        <button class="btn btn-primary" type="submit">🔍</button>
+                    </div>
+                </form>
+
+                <h5 class="fw-bold mb-3">Жанрлар</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <a href="{% url 'book_list' %}" class="text-decoration-none {% if not request.GET.genre %}fw-bold text-success{% else %}text-dark{% endif %}">Барлығы</a>
+                    </li>
+                    {% for genre in genres %}
+                    <li class="mb-2">
+                        <a href="{% url 'book_list' %}?genre={{ genre }}" class="text-decoration-none {% if request.GET.genre == genre %}fw-bold text-success{% else %}text-dark{% endif %}">{{ genre }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9">
+            <h2 class="fw-bold mb-4">Кітаптар каталогы</h2>
+            {% if books %}
+            <div class="row">
+                {% for book in books %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="{{ book.cover_image_url }}" class="card-img-top book-cover" alt="{{ book.title }}">
+                        <div class="card-body">
+                            <span class="badge badge-genre mb-2">{{ book.genre }}</span>
+                            <h5 class="card-title fw-bold">{{ book.title }}</h5>
+                            <p class="card-text text-muted small">{{ book.author.full_name }}</p>
+                            <a href="{{ book.get_absolute_url }}" class="btn btn-primary w-100">Толығырақ</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% if is_paginated %}
+            <nav class="mt-4">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link text-success" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.genre %}&genre={{ request.GET.genre }}{% endif %}">Алдыңғы</a></li>
+                    {% endif %}
+
+                    <li class="page-item active"><span class="page-link bg-success border-success">{{ page_obj.number }}</span></li>
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link text-success" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.genre %}&genre={{ request.GET.genre }}{% endif %}">Келесі</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+
+            {% else %}
+            <div class="alert alert-info">Өкінішке орай, сұранысыңыз бойынша кітап табылмады.</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

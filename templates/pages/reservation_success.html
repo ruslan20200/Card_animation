@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Рахмет! - Кітапхана{% endblock %}
+
+{% block content %}
+<div class="container my-5 text-center">
+    <div class="py-5">
+        <h1 class="display-1 text-success mb-4">✔</h1>
+        <h1 class="fw-bold mb-4">Брондау қабылданды!</h1>
+        <p class="lead mb-5">Тапсырысыңыз сәтті өңделді. Біздің кітапханашы жақын арада сізбен хабарласады.</p>
+        <a href="{% url 'home' %}" class="btn btn-primary btn-lg px-5">Басты бетке оралу</a>
+    </div>
+</div>
+{% endblock %}
