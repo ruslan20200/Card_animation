@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Тапсырыс беру - Зергерлік дүкен{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="p-5 border border-secondary bg-dark shadow-lg">
+                <h1 class="section-title">Тапсырыс беру</h1>
+                <p class="text-center mb-5 text-secondary">Төмендегі форманы толтырыңыз, біздің кеңесші сізбен жақын арада байланысады.</p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="mb-4">
+                        <label for="{{ field.id_for_label }}" class="form-label text-gold">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                        <div class="text-danger small mt-1">{{ field.errors }}</div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-luxury w-100 py-3 mt-3">Өтінімді жіберу</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .text-gold { color: #d4af37; }
+</style>
+{% endblock %}
