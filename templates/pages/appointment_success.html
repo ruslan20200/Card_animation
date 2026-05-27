@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Сәтті жазылдыңыз! - Сұлулық салоны{% endblock %}
+
+{% block content %}
+<div class="container py-5 text-center">
+    <div class="py-5">
+        <h1 class="display-4 text-success mb-4">Жазылуыңыз сәтті қабылданды!</h1>
+        <p class="lead mb-5">Біздің администратор жақын арада сізбен хабарласып, жазылуды растайды.</p>
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'home' %}" class="btn btn-primary me-3">Басты бетке оралу</a>
+            <a href="{% url 'catalog' %}" class="btn btn-outline-dark">Қызметтер каталогы</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

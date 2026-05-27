@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Біздің шеберлер - Сұлулық салоны{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="text-center mb-5">Біздің шеберлер</h1>
+    <div class="row">
+        {% for stylist in stylists %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="{{ stylist.photo_url }}" class="card-img-top" alt="{{ stylist.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ stylist.name }}</h5>
+                    <p class="text-muted mb-1"><strong>{{ stylist.specialty }}</strong></p>
+                    <p class="text-muted small mb-3">Жұмыс өтілі: {{ stylist.experience_years }} жыл</p>
+                    <p class="card-text">{{ stylist.bio }}</p>
+                    <a href="{% url 'appointment' %}?stylist={{ stylist.id }}" class="btn btn-primary w-100">Жазылу</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

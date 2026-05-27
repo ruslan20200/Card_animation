@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Байланыс - Сұлулық салоны{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="text-center mb-5">Байланыс</h1>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="form-container">
+                <h3>Бізге жазыңыз</h3>
+                <p class="text-muted mb-4">Сұрақтарыңыз болса, бізге хабарласыңыз.</p>
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Аты-жөніңіз</label>
+                        <input type="text" class="form-control" placeholder="Сіздің атыңыз">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" placeholder="example@mail.com">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Хабарлама</label>
+                        <textarea class="form-control" rows="4" placeholder="Сіздің сұрағыңыз..."></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary w-100">Жіберу</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="p-4 h-100">
+                <h3>Біздің мекен-жайымыз</h3>
+                <p class="mt-4"><strong>Адрес:</strong><br>Алматы қ., Достық даңғылы 105</p>
+                <p><strong>Телефон:</strong><br>+7 (727) 222-3344</p>
+                <p><strong>Жұмыс уақыты:</strong><br>Күн сайын: 09:00 - 21:00</p>
+                <p><strong>Email:</strong><br>info@beauty-salon.kz</p>
+
+                <h4 class="mt-5 mb-3">Әлеуметтік желілер</h4>
+                <div class="d-flex">
+                    <a href="#" class="btn btn-outline-dark me-2">Instagram</a>
+                    <a href="#" class="btn btn-outline-dark me-2">Facebook</a>
+                    <a href="#" class="btn btn-outline-dark">WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
