@@ -1,8 +1,61 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}Home - Django Project{% endblock %}
+{% block title %}Басты бет - Сұлулық салоны{% endblock %}
 
 {% block content %}
-    <h1>Welcome to the Home Page</h1>
-    <p>This is a clean, production-ready Django boilerplate.</p>
+<section class="hero-section">
+    <div class="container">
+        <h1 class="hero-title">Сұлулық пен үйлесімділік әлемі</h1>
+        <p class="lead mb-5">Өзіңізге күтім жасаңыз, біз сіздің кескініңізді мінсіз етеміз.</p>
+        <a href="{% url 'appointment' %}" class="btn btn-primary btn-lg">Қазір жазылу</a>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Танымал қызметтер</h2>
+        <div class="row">
+            {% for service in popular_services %}
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <img src="{{ service.image_url }}" class="card-img-top" alt="{{ service.title }}">
+                    <div class="card-body">
+                        <span class="category-badge mb-2 d-inline-block">{{ service.category.name }}</span>
+                        <h5 class="card-title">{{ service.title }}</h5>
+                        <p class="price-tag">{{ service.price }} ₸</p>
+                        <a href="{% url 'appointment' %}?service={{ service.id }}" class="btn btn-outline-primary w-100">Жазылу</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'catalog' %}" class="btn btn-outline-dark">Барлық қызметтер</a>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Біздің үздік шеберлер</h2>
+        <div class="row">
+            {% for stylist in top_stylists %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-center">
+                    <img src="{{ stylist.photo_url }}" class="card-img-top" alt="{{ stylist.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ stylist.name }}</h5>
+                        <p class="text-muted">{{ stylist.specialty }}</p>
+                        <p class="small">{{ stylist.bio|truncatechars:100 }}</p>
+                        <a href="{% url 'appointment' %}?stylist={{ stylist.id }}" class="btn btn-primary">Жазылу</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'stylists' %}" class="btn btn-outline-dark">Барлық шеберлер</a>
+        </div>
+    </div>
+</section>
 {% endblock %}
