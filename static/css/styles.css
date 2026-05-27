@@ -1,71 +1,98 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+:root {
+    --grocery-green: #198754;
+    --grocery-orange: #fd7e14;
+    --light-ivory: #fdfbf7;
+    --dark-slate: #2d3436;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--light-ivory);
+    color: var(--dark-slate);
 }
 
-header {
-    background-color: #2c3e50;
-    color: #ecf0f1;
-    padding: 1rem 0;
+.text-orange {
+    color: var(--grocery-orange) !important;
 }
 
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 1rem;
+.btn-orange {
+    background-color: var(--grocery-orange);
+    border-color: var(--grocery-orange);
 }
 
-nav .logo a {
+.btn-orange:hover {
+    background-color: #e67000;
+    border-color: #e67000;
+}
+
+.navbar-brand {
     font-size: 1.5rem;
-    font-weight: bold;
-    color: #ecf0f1;
-    text-decoration: none;
 }
 
-nav ul {
-    display: flex;
-    list-style: none;
+.nav-link {
+    font-weight: 600;
+    color: var(--dark-slate) !important;
 }
 
-nav ul li {
-    margin-left: 2rem;
+.nav-link.active {
+    color: var(--grocery-green) !important;
 }
 
-nav ul li a {
-    color: #ecf0f1;
-    text-decoration: none;
-    transition: color 0.3s ease;
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 0;
 }
 
-nav ul li a:hover {
-    color: #3498db;
+/* Product Cards */
+.card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-main {
-    flex: 1;
-    max-width: 1100px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.product-image-container {
+    height: 200px;
+    overflow: hidden;
+}
+
+.product-image-container img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-footer {
-    background-color: #2c3e50;
-    color: #ecf0f1;
-    text-align: center;
-    padding: 1rem 0;
-    margin-top: auto;
+.badge-fresh {
+    background-color: var(--grocery-green);
+}
+
+.badge-sale {
+    background-color: var(--grocery-orange);
+}
+
+/* Forms */
+.form-control:focus, .form-select:focus {
+    border-color: var(--grocery-green);
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+}
+
+/* Category Sidebar */
+.category-list .list-group-item {
+    border: none;
+    background: transparent;
+    padding: 0.5rem 0;
+}
+
+.category-list .list-group-item.active {
+    color: var(--grocery-green) !important;
+    font-weight: bold;
 }

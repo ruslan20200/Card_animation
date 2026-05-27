@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Өнімдер каталогы - Азық-түлік дүкені{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <h1 class="fw-bold">Өнімдер каталогы</h1>
+        </div>
+        <div class="col-md-6">
+            <form action="{% url 'catalog' %}" method="get" class="d-flex">
+                <input type="text" name="q" class="form-control me-2" placeholder="Өнімді іздеу..." value="{{ search_query|default:'' }}">
+                {% if current_category %}
+                <input type="hidden" name="category" value="{{ current_category }}">
+                {% endif %}
+                <button type="submit" class="btn btn-success px-4">Іздеу</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 mb-4">
+            <h5 class="fw-bold mb-3">Санаттар</h5>
+            <div class="list-group category-list">
+                <a href="{% url 'catalog' %}" class="list-group-item list-group-item-action {% if not current_category %}active{% endif %}">
+                    Барлық өнімдер
+                </a>
+                {% for cat in categories %}
+                <a href="{% url 'catalog' %}?category={{ cat.id }}" class="list-group-item list-group-item-action {% if current_category == cat.id|stringformat:'i' %}active{% endif %}">
+                    {{ cat.name }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="col-md-9">
+            {% if search_query %}
+            <p class="mb-4">Іздеу нәтижесі: "<strong>{{ search_query }}</strong>"</p>
+            {% endif %}
+
+            <div class="row g-4">
+                {% for product in products %}
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="product-image-container position-relative">
+                            <img src="{{ product.image_url }}" alt="{{ product.title }}">
+                            {% if product.is_on_sale %}
+                            <span class="badge badge-sale position-absolute top-0 start-0 m-2">Жеңілдік</span>
+                            {% endif %}
+                            {% if product.is_fresh %}
+                            <span class="badge badge-fresh position-absolute top-0 end-0 m-2">Балғын</span>
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted small mb-1">{{ product.category.name }}</p>
+                            <h5 class="card-title fw-bold">{{ product.title }}</h5>
+                            <p class="text-muted small mb-2">{{ product.description|truncatewords:10 }}</p>
+                            <p class="text-success fw-bold fs-5 mb-0">{{ product.price }} ₸ <small class="text-muted fw-normal" style="font-size: 0.8rem;">/ {{ product.weight_info }}</small></p>
+                        </div>
+                        <div class="card-footer bg-white border-0 pb-3">
+                            <a href="{% url 'order_create' %}?product={{ product.id }}" class="btn btn-orange text-white w-100">Тапсырыс беру</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center py-5">
+                    <p class="fs-5">Өнімдер табылмады.</p>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            {% if is_paginated %}
+            <nav aria-label="Page navigation" class="mt-5">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link text-success" href="?page={{ page_obj.previous_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}">Алдыңғы</a>
+                    </li>
+                    {% endif %}
+
+                    <li class="page-item disabled">
+                        <span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+                    </li>
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link text-success" href="?page={{ page_obj.next_page_number }}{% if current_category %}&category={{ current_category }}{% endif %}{% if search_query %}&q={{ search_query }}{% endif %}">Келесі</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

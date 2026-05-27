@@ -1,8 +1,63 @@
 {% extends "base.html" %}
 
-{% block title %}Home - Django Project{% endblock %}
+{% block title %}Басты бет - Азық-түлік дүкені{% endblock %}
 
 {% block content %}
-    <h1>Welcome to the Home Page</h1>
-    <p>This is a clean, production-ready Django boilerplate.</p>
+<section class="hero-section text-center mb-5">
+    <div class="container">
+        <h1 class="display-3 fw-bold mb-3">Үйіңізге жаңа әрі балғын өнімдер</h1>
+        <p class="lead mb-4">Ең жақсы бағамен сапалы азық-түлікке тапсырыс беріңіз. Біз 1 сағат ішінде жеткіземіз!</p>
+        <a href="{% url 'catalog' %}" class="btn btn-orange btn-lg text-white px-5">Каталогты көру</a>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row mb-5 text-center">
+        <div class="col-12">
+            <h2 class="fw-bold">Санаттар бойынша іздеу</h2>
+            <div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
+                {% for category in categories %}
+                <a href="{% url 'catalog' %}?category={{ category.id }}" class="btn btn-outline-success rounded-pill px-4">{{ category.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <h2 class="fw-bold">Арнайы ұсыныстар</h2>
+            <a href="{% url 'catalog' %}" class="text-success text-decoration-none fw-bold">Барлығын көру &rarr;</a>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        {% for product in featured_products %}
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm">
+                <div class="product-image-container position-relative">
+                    <img src="{{ product.image_url }}" alt="{{ product.title }}">
+                    {% if product.is_on_sale %}
+                    <span class="badge badge-sale position-absolute top-0 start-0 m-2">Жеңілдік</span>
+                    {% endif %}
+                    {% if product.is_fresh %}
+                    <span class="badge badge-fresh position-absolute top-0 end-0 m-2">Балғын</span>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <p class="text-muted small mb-1">{{ product.category.name }}</p>
+                    <h5 class="card-title fw-bold">{{ product.title }}</h5>
+                    <p class="text-success fw-bold fs-5 mb-0">{{ product.price }} ₸ <small class="text-muted fw-normal" style="font-size: 0.8rem;">/ {{ product.weight_info }}</small></p>
+                </div>
+                <div class="card-footer bg-white border-0 pb-3">
+                    <a href="{% url 'order_create' %}?product={{ product.id }}" class="btn btn-orange text-white w-100">Тапсырыс беру</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <p>Қазіргі уақытта арнайы ұсыныстар жоқ.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
