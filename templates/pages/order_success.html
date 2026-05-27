@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Өтінім қабылданды - Дәріхана{% endblock %}
+
+{% block content %}
+<div class="container py-5 text-center">
+    <div class="py-5">
+        <img src="https://img.icons8.com/color/144/000000/ok--v1.png" alt="Success" class="mb-4">
+        <h1 class="display-4 fw-bold text-success mb-3">Рахмет!</h1>
+        <p class="lead mb-5">Сіздің өтініміңіз сәтті қабылданды. Біздің маман сізге жақын арада хабарласады.</p>
+        <a href="{% url 'home' %}" class="btn btn-primary rounded-pill px-5">Басты бетке оралу</a>
+    </div>
+</div>
+{% endblock %}

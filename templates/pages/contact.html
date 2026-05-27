@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Байланыс - Дәріхана{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="fw-bold text-center mb-5">Бізбен байланысыңыз</h1>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="bg-white p-4 rounded-4 shadow-sm h-100 text-center border-bottom border-success border-4">
+                <img src="https://img.icons8.com/color/48/000000/marker.png" alt="Address" class="mb-3">
+                <h4 class="fw-bold">Мекен-жай</h4>
+                <p class="text-muted">Алматы қ., Төле би көшесі 55</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="bg-white p-4 rounded-4 shadow-sm h-100 text-center border-bottom border-success border-4">
+                <img src="https://img.icons8.com/color/48/000000/phone.png" alt="Phone" class="mb-3">
+                <h4 class="fw-bold">Телефон</h4>
+                <p class="text-muted">+7 (727) 333-4455<br>+7 (707) 123-4567</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="bg-white p-4 rounded-4 shadow-sm h-100 text-center border-bottom border-success border-4">
+                <img src="https://img.icons8.com/color/48/000000/email.png" alt="Email" class="mb-3">
+                <h4 class="fw-bold">Электронды пошта</h4>
+                <p class="text-muted">info@darihana.kz<br>sales@darihana.kz</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <div class="bg-white p-2 rounded-4 shadow-sm overflow-hidden">
+            <!-- Mock Map -->
+            <div style="height: 400px; background: #e9ecef; display: flex; align-items: center; justify-content: center; border-radius: 10px;">
+                <div class="text-center">
+                    <img src="https://img.icons8.com/color/96/000000/google-maps-new.png" alt="Map">
+                    <h5 class="mt-3">Карта жүктелуде...</h5>
+                    <p class="text-muted">Алматы қ., Төле би көшесі 55</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

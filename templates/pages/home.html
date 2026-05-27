@@ -1,8 +1,71 @@
 {% extends "base.html" %}
 
-{% block title %}Home - Django Project{% endblock %}
-
 {% block content %}
-    <h1>Welcome to the Home Page</h1>
-    <p>This is a clean, production-ready Django boilerplate.</p>
+<!-- Hero Section -->
+<section class="hero-section text-center text-white d-flex align-items-center">
+    <div class="container py-5" style="background: rgba(0,0,0,0.3); border-radius: 20px;">
+        <h1 class="display-3 fw-bold mb-4">Денсаулық — басты байлық</h1>
+        <p class="lead mb-5">Сапалы дәрі-дәрмектер мен медициналық бұйымдардың кең таңдауы.</p>
+        <a href="{% url 'catalog' %}" class="btn btn-primary btn-lg rounded-pill px-5">Каталогты көру</a>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="p-4">
+                    <img src="https://img.icons8.com/color/96/000000/delivery.png" alt="Delivery" class="mb-3">
+                    <h3>Жылдам жеткізу</h3>
+                    <p class="text-muted">Қала бойынша 1 сағат ішінде жеткізу мүмкіндігі.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="p-4">
+                    <img src="https://img.icons8.com/color/96/000000/guarantee.png" alt="Quality" class="mb-3">
+                    <h3>Сертификатталған</h3>
+                    <p class="text-muted">Барлық өнімдер мемлекеттік стандарттарға сай.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="p-4">
+                    <img src="https://img.icons8.com/color/96/000000/pharmacist.png" alt="Expert" class="mb-3">
+                    <h3>Кәсіби мамандар</h3>
+                    <p class="text-muted">Тәжірибелі фармацевттерден кеңес алу мүмкіндігі.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Medicines -->
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+            <h2 class="fw-bold mb-0">Таңдаулы өнімдер</h2>
+            <a href="{% url 'catalog' %}" class="text-decoration-none text-success fw-bold">Барлығын көру &rarr;</a>
+        </div>
+        <div class="row g-4">
+            {% for medicine in featured_medicines %}
+            <div class="col-md-3">
+                <div class="card h-100">
+                    <img src="{{ medicine.image_url }}" class="card-img-top" alt="{{ medicine.name }}">
+                    <div class="card-body">
+                        <span class="category-badge mb-2 d-inline-block">{{ medicine.category.name }}</span>
+                        <h5 class="card-title fw-bold">{{ medicine.name }}</h5>
+                        <p class="price-tag mb-3">{{ medicine.price }} ₸</p>
+                        <div class="d-grid">
+                            <a href="{% url 'medicine_detail' medicine.pk %}" class="btn btn-outline-primary rounded-pill mb-2">Толығырақ</a>
+                            <a href="{% url 'order_form' %}?medicine={{ medicine.id }}" class="btn btn-primary rounded-pill">Тапсырыс беру</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center">Қазіргі уақытта таңдаулы өнімдер жоқ.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 {% endblock %}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Каталог - Дәріхана{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <!-- Sidebar Filter -->
+        <div class="col-md-3 mb-4">
+            <div class="bg-white p-4 rounded-4 shadow-sm">
+                <h4 class="fw-bold mb-4">Категориялар</h4>
+                <div class="list-group list-group-flush">
+                    <a href="{% url 'catalog' %}" class="list-group-item list-group-item-action border-0 px-0 {% if not selected_category %}fw-bold text-success{% endif %}">
+                        Барлығы
+                    </a>
+                    {% for category in categories %}
+                    <a href="{% url 'catalog' %}?category={{ category.id }}"
+                       class="list-group-item list-group-item-action border-0 px-0 {% if selected_category == category.id|stringformat:'s' %}fw-bold text-success{% endif %}">
+                        {{ category.name }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Medicine Grid -->
+        <div class="col-md-9">
+            <div class="row g-4">
+                {% for medicine in medicines %}
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <img src="{{ medicine.image_url }}" class="card-img-top" alt="{{ medicine.name }}">
+                        <div class="card-body">
+                            <span class="category-badge mb-2 d-inline-block">{{ medicine.category.name }}</span>
+                            <h5 class="card-title fw-bold">{{ medicine.name }}</h5>
+                            <p class="price-tag mb-3">{{ medicine.price }} ₸</p>
+                            {% if medicine.requires_prescription %}
+                            <p class="text-warning small mb-3"><i class="bi bi-exclamation-triangle"></i> Рецепт қажет</p>
+                            {% endif %}
+                            <div class="d-grid">
+                                <a href="{% url 'medicine_detail' medicine.pk %}" class="btn btn-outline-primary rounded-pill mb-2">Толығырақ</a>
+                                <a href="{% url 'order_form' %}?medicine={{ medicine.id }}" class="btn btn-primary rounded-pill">Тапсырыс беру</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center py-5">
+                    <h3>Дәрі-дәрмектер табылмады.</h3>
+                    <p class="text-muted">Басқа категорияны таңдап көріңіз.</p>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            {% if is_paginated %}
+            <nav class="mt-5">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}">Алдыңғы</a></li>
+                    {% endif %}
+
+                    <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}{% if selected_category %}&category={{ selected_category }}{% endif %}">Келесі</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
