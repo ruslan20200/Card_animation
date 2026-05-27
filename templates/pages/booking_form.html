@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Бөлме брондау - Қонақ үй{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-dark text-white text-center">
+    <div class="container">
+        <h1>Бөлме брондау</h1>
+        <p class="lead">Брондау үшін төмендегі форманы толтырыңыз</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg p-4 border-0">
+                    <form method="post">
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.guest_name.id_for_label }}" class="form-label">Аты-жөніңіз</label>
+                                {{ form.guest_name }}
+                                {{ form.guest_name.errors }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.phone_number.id_for_label }}" class="form-label">Телефон нөмірі</label>
+                                {{ form.phone_number }}
+                                {{ form.phone_number.errors }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.email.id_for_label }}" class="form-label">Электронды пошта</label>
+                            {{ form.email }}
+                            {{ form.email.errors }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.selected_room_type.id_for_label }}" class="form-label">Бөлме түрін таңдаңыз</label>
+                            {{ form.selected_room_type }}
+                            {{ form.selected_room_type.errors }}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.check_in_date.id_for_label }}" class="form-label">Келу күні</label>
+                                {{ form.check_in_date }}
+                                {{ form.check_in_date.errors }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.check_out_date.id_for_label }}" class="form-label">Кету күні</label>
+                                {{ form.check_out_date }}
+                                {{ form.check_out_date.errors }}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="{{ form.guest_count.id_for_label }}" class="form-label">Қонақтар саны</label>
+                            {{ form.guest_count }}
+                            {{ form.guest_count.errors }}
+                        </div>
+
+                        <button type="submit" class="btn btn-gold w-100 btn-lg">Брондауды растау</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

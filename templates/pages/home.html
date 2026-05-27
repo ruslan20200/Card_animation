@@ -1,8 +1,73 @@
-{% extends "base.html" %}
-
-{% block title %}Home - Django Project{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-    <h1>Welcome to the Home Page</h1>
-    <p>This is a clean, production-ready Django boilerplate.</p>
+<section class="hero-section">
+    <div class="container">
+        <h1 class="hero-title">Өзіңізге жайлылық сыйлаңыз</h1>
+        <p class="lead mb-4">"Қонақ үй" - Сіздің демалысыңыз үшін ең жақсы таңдау</p>
+        <a href="{% url 'room_catalog' %}" class="btn btn-gold btn-lg">Бөлмелерді көру</a>
+    </div>
+</section>
+
+<section class="py-5 mt-5">
+    <div class="container">
+        <h2 class="text-center section-title">Бөлмелер қоры</h2>
+        <div class="row">
+            {% for room in featured_rooms %}
+            <div class="col-md-4 mb-4">
+                <div class="card room-card">
+                    <img src="{{ room.image_url }}" class="card-img-top" alt="{{ room.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ room.name }}</h5>
+                        <p class="card-text text-muted">{{ room.description|truncatewords:15 }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="room-price">{{ room.price_per_night }} ₸ / тәулігіне</span>
+                            <a href="{% url 'room_detail' room.pk %}" class="btn btn-outline-gold">Толығырақ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'room_catalog' %}" class="btn btn-gold">Барлық бөлмелерді көру</a>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center section-title">Қызметтер мен Ыңғайлылықтар</h2>
+        <div class="row text-center">
+            {% for amenity in amenities %}
+            <div class="col-md-4 mb-4">
+                <div class="p-4 bg-white rounded shadow-sm h-100">
+                    <i class="bi {{ amenity.icon_class }} amenity-icon"></i>
+                    <h4>{{ amenity.name }}</h4>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-md-4 mb-4">
+                <div class="p-4 bg-white rounded shadow-sm h-100">
+                    <i class="bi bi-wifi amenity-icon"></i>
+                    <h4>Тегін Wi-Fi</h4>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="p-4 bg-white rounded shadow-sm h-100">
+                    <i class="bi bi-water amenity-icon"></i>
+                    <h4>Бассейн</h4>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="p-4 bg-white rounded shadow-sm h-100">
+                    <i class="bi bi-cup-hot amenity-icon"></i>
+                    <h4>Таңғы ас</h4>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 {% endblock %}

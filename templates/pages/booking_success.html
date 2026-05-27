@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Брондау сәтті аяқталды - Қонақ үй{% endblock %}
+
+{% block content %}
+<section class="py-5 text-center my-5">
+    <div class="container">
+        <div class="mb-4">
+            <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
+        </div>
+        <h1 class="mb-3">Брондау сәтті аяқталды!</h1>
+        <p class="lead mb-5">Брондау өтініміңіз қабылданды. Біз сізбен жақын арада байланысамыз.</p>
+        <a href="{% url 'home' %}" class="btn btn-gold btn-lg">Басты бетке қайту</a>
+    </div>
+</section>
+{% endblock %}

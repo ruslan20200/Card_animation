@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Байланыс - Қонақ үй{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-dark text-white text-center">
+    <div class="container">
+        <h1>Байланыс</h1>
+        <p class="lead">Бізбен хабарласыңыз</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm border-0 p-4">
+                    <div class="card-body text-center">
+                        <i class="bi bi-geo-alt fs-1 text-gold mb-3"></i>
+                        <h4>Мекен-жайымыз</h4>
+                        <p>Алматы қ., Медеу ауданы, Тау көшесі 123 (Шымбұлақ бағытында)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm border-0 p-4">
+                    <div class="card-body text-center">
+                        <i class="bi bi-telephone fs-1 text-gold mb-3"></i>
+                        <h4>Телефон</h4>
+                        <p>+7 (700) 123-45-67<br>+7 (727) 345-67-89</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm border-0 p-4">
+                    <div class="card-body text-center">
+                        <i class="bi bi-envelope fs-1 text-gold mb-3"></i>
+                        <h4>Электронды пошта</h4>
+                        <p>info@qonaquy.kz<br>booking@qonaquy.kz</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="bg-light p-2 rounded shadow-sm overflow-hidden" style="height: 450px;">
+                    <!-- Карта орнына сурет қолданамыз -->
+                    <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80" class="w-100 h-100 object-fit-cover rounded" alt="Карта">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ room.name }} - Қонақ үй{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Басты бет</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'room_catalog' %}">Бөлмелер қоры</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ room.name }}</li>
+            </ol>
+        </nav>
+
+        <div class="row mt-4">
+            <div class="col-lg-7">
+                <img src="{{ room.image_url }}" class="img-fluid rounded shadow-lg mb-4" alt="{{ room.name }}">
+                <h2 class="mb-4">{{ room.name }}</h2>
+                <p class="lead">{{ room.description }}</p>
+
+                <h4 class="mt-5 mb-3">Ыңғайлылықтар</h4>
+                <div class="row">
+                    {% for amenity in room.amenities.all %}
+                    <div class="col-md-4 col-6 mb-3">
+                        <div class="d-flex align-items-center">
+                            <i class="bi {{ amenity.icon_class }} fs-4 me-2 text-gold"></i>
+                            <span>{{ amenity.name }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="card shadow-lg p-4 border-0">
+                    <div class="card-body">
+                        <h3 class="mb-4">Брондау</h3>
+                        <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+                            <span>Тәулігіне бағасы:</span>
+                            <span class="fw-bold fs-4 text-gold">{{ room.price_per_night }} ₸</span>
+                        </div>
+                        <div class="mb-4">
+                            <i class="bi bi-people me-2"></i> Сыйымдылығы: {{ room.capacity }} адам
+                        </div>
+                        <a href="{% url 'booking_form' %}?room={{ room.pk }}" class="btn btn-gold w-100 btn-lg">Қазір брондау</a>
+                        <p class="text-muted mt-3 small text-center">
+                            <i class="bi bi-info-circle"></i> Брондау тегін, төлем қонақ үйге келгенде жасалады.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
