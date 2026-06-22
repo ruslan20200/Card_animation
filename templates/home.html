@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section py-5 d-flex align-items-center">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h1 class="display-3 fw-bold mb-4">Балаңыз үшін ең жақсы бастама!</h1>
+                <p class="lead mb-5 text-muted">Біз әр баланың жеке қабілетін ашып, олардың қызықты әрі танымды ортада өсуіне жағдай жасаймыз.</p>
+                <div class="d-flex gap-3">
+                    <a href="{% url 'enroll' %}" class="btn btn-primary btn-lg rounded-pill px-5">Өтінім беру</a>
+                    <a href="{% url 'group_list' %}" class="btn btn-outline-warning btn-lg rounded-pill px-5">Топтарды көру</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1000" alt="Kindergarten kids" class="img-fluid rounded-4 shadow">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="py-5 bg-light-blue">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Біздің артықшылықтарымыз</h2>
+            <div class="heading-line mx-auto"></div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-4 rounded-4">
+                    <div class="icon-circle bg-primary-soft text-primary mx-auto mb-4">
+                        <span class="fs-2">🎨</span>
+                    </div>
+                    <h3>Шығармашылық</h3>
+                    <p class="text-muted">Сурет салу, музыка және қолөнер арқылы баланың шығармашылық әлеуетін дамытамыз.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-4 rounded-4">
+                    <div class="icon-circle bg-warning-soft text-warning mx-auto mb-4">
+                        <span class="fs-2">🍎</span>
+                    </div>
+                    <h3>Дұрыс тамақтану</h3>
+                    <p class="text-muted">Балаларға күніне 5 рет пайдалы әрі дәмді ас ұсынамыз.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-4 rounded-4">
+                    <div class="icon-circle bg-success-soft text-success mx-auto mb-4">
+                        <span class="fs-2">⚽</span>
+                    </div>
+                    <h3>Спорт және ойын</h3>
+                    <p class="text-muted">Таза ауадағы ойындар мен спорттық жаттығулар денсаулықтың кепілі.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Groups -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Біздің топтар</h2>
+            <div class="heading-line mx-auto"></div>
+        </div>
+        <div class="row g-4">
+            {% for group in featured_groups %}
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm overflow-hidden rounded-4">
+                    <img src="{{ group.image_url }}" class="card-img-top" alt="{{ group.name }}" style="height: 250px; object-fit: cover;">
+                    <div class="card-body p-4">
+                        <div class="badge bg-primary-soft text-primary mb-2 px-3 py-2 rounded-pill">{{ group.age_range }}</div>
+                        <h4 class="card-title fw-bold">{{ group.name }}</h4>
+                        <p class="card-text text-muted">{{ group.description|truncatewords:15 }}</p>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <span class="fs-5 fw-bold text-primary">{{ group.monthly_price }} ₸ / ай</span>
+                            <a href="{% url 'enroll' %}?group={{ group.id }}" class="btn btn-outline-primary rounded-pill">Жазылу</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-5">
+            <a href="{% url 'group_list' %}" class="btn btn-primary rounded-pill px-4">Барлық топтарды көру</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

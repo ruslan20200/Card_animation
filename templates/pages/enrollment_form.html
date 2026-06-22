@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Өтінім беру - Бала бақша{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light-green mb-5">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold">Қабылдауға өтінім</h1>
+        <p class="lead text-muted">Бізбен байланысыңыз, біз сізге міндетті түрде хабарласамыз</p>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-lg p-4 p-md-5 rounded-4">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Ата-ананың аты-жөні</label>
+                            {{ form.parent_name }}
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Телефон нөмірі</label>
+                            {{ form.phone_number }}
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label fw-bold">Баланың аты-жөні</label>
+                            {{ form.child_name }}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Жасы</label>
+                            {{ form.child_age }}
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Топты таңдаңыз</label>
+                            {{ form.selected_group }}
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Хабарлама (міндетті емес)</label>
+                            {{ form.message }}
+                        </div>
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill">Өтінімді жіберу</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

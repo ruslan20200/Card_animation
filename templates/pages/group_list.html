@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Топтар - Бала бақша{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light-blue mb-5">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold">Біздің топтар</h1>
+        <p class="lead text-muted">Балаңыздың жасына сәйкес келетін топты таңдаңыз</p>
+    </div>
+</section>
+
+<div class="container">
+    <!-- Filter Bar -->
+    <div class="row mb-5 justify-content-center">
+        <div class="col-md-8">
+            <form method="get" class="d-flex gap-2">
+                <input type="text" name="age_range" class="form-control rounded-pill px-4" placeholder="Жас бойынша іздеу (мысалы: 3-4)..." value="{{ request.GET.age_range }}">
+                <button type="submit" class="btn btn-primary rounded-pill px-4">Іздеу</button>
+                <a href="{% url 'group_list' %}" class="btn btn-outline-secondary rounded-pill px-4">Тазалау</a>
+            </form>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        {% for group in groups %}
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm overflow-hidden rounded-4">
+                <img src="{{ group.image_url }}" class="card-img-top" alt="{{ group.name }}" style="height: 250px; object-fit: cover;">
+                <div class="card-body p-4">
+                    <div class="badge bg-primary-soft text-primary mb-2 px-3 py-2 rounded-pill">{{ group.age_range }}</div>
+                    <h3 class="card-title fw-bold">{{ group.name }}</h3>
+                    <p class="card-text text-muted">{{ group.description }}</p>
+                    <ul class="list-unstyled mb-4">
+                        <li><strong>Сыйымдылығы:</strong> {{ group.capacity }} бала</li>
+                        <li><strong>Айлық төлем:</strong> {{ group.monthly_price }} ₸</li>
+                    </ul>
+                    <a href="{% url 'enroll' %}?group={{ group.id }}" class="btn btn-primary w-100 rounded-pill">Өтінім беру</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <p class="lead text-muted">Өкінішке орай, мұндай топ табылмады.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

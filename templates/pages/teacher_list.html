@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Тәрбиешілер - Бала бақша{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light-yellow mb-5">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold">Біздің ұжым</h1>
+        <p class="lead text-muted">Балаңызға қамқор болатын кәсіби мамандармен танысыңыз</p>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row g-4">
+        {% for teacher in teachers %}
+        <div class="col-md-3">
+            <div class="card h-100 border-0 shadow-sm text-center p-3 rounded-4">
+                <div class="teacher-photo-wrapper mx-auto mb-3">
+                    <img src="{{ teacher.photo_url }}" class="rounded-circle" alt="{{ teacher.full_name }}" style="width: 150px; height: 150px; object-fit: cover; border: 5px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                </div>
+                <h4 class="fw-bold mb-1">{{ teacher.full_name }}</h4>
+                <p class="text-primary fw-bold mb-2">{{ teacher.specialty }}</p>
+                <div class="badge bg-success-soft text-success mb-3 px-3 py-1 rounded-pill">Өтілі: {{ teacher.experience_years }} жыл</div>
+                <p class="small text-muted">{{ teacher.biography }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <p class="lead text-muted">Тәрбиешілер тізімі жақын арада жаңартылады.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
